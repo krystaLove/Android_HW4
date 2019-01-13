@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">New Year Task</string>
+    <string-array name="paradigms">
+        <item>Aspect-oriented</item>
+        <item>Declarative</item>
+        <item>Event-driven</item>
+        <item>Functional</item>
+        <item>Generic</item>
+        <item>Imperative</item>
+        <item>OOP</item>
+        <item>Procedural</item>
+        <item>Reflective</item>
+        <item>Structured</item>
+    </string-array>
+</resources>
