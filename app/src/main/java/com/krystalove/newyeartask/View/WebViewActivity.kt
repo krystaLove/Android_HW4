@@ -1,16 +1,13 @@
-package com.krystalove.newyeartask
+package com.krystalove.newyeartask.View
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
-import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.krystalove.newyeartask.R
 import kotlinx.android.synthetic.main.activity_web_view.*
-import com.krystalove.newyeartask.R.id.webView
-
 
 
 class WebViewActivity : AppCompatActivity() {

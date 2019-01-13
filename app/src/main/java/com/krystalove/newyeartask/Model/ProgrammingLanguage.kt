@@ -1,10 +1,11 @@
-package com.krystalove.newyeartask
-
+package com.krystalove.newyeartask.Model
 import android.graphics.Bitmap
+
 
 class ProgrammingLanguage(val name:String, val author:String, val releaseDate:String,
                           val paradigm:List<String>,val logo: Bitmap,
                           val rating: String, val Url:String){
+
     val paradigmMap = mutableMapOf<String, Boolean>()
     init {
         paradigmMap["Aspect-oriented"] = paradigm.contains("Aspect-oriented")
