@@ -24,7 +24,7 @@
             android:gravity="center"
             android:text="Java"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
             android:layout_height="70dp"/>
     <TextView
             android:id="@+id/author"
