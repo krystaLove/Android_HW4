@@ -14,12 +14,21 @@ import com.krystalove.newyeartask.R
 import com.krystalove.newyeartask.View.MainActivity
 import java.util.*
 import kotlin.collections.ArrayList
+import com.krystalove.newyeartask.Controller.Adapters.MyRecyclerViewAdapter.ViewHolderTwo
+import com.krystalove.newyeartask.Controller.Adapters.MyRecyclerViewAdapter.ViewHolderOne
 
 
-class MyRecyclerViewAdapter (context: Context, data: ArrayList<ProgrammingLanguage>) : RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder>(), Filterable{
 
-    private var mLanguagesData = ArrayList<ProgrammingLanguage>(0)
-    private var mLanguagesDataFiltered = ArrayList<ProgrammingLanguage>()
+
+class MyRecyclerViewAdapter (context: Context, data: ArrayList<ProgrammingLanguage>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable{
+
+    companion object {
+        const val RIGHT_LOGO = 0
+        const val LEFT_LOGO = 1
+    }
+
+    var mLanguagesData = ArrayList<ProgrammingLanguage>(0)
+    var mLanguagesDataFiltered = ArrayList<ProgrammingLanguage>()
     private val mInflater: LayoutInflater
     private var mClickListener: ItemClickListener? = null
 
@@ -30,14 +39,39 @@ class MyRecyclerViewAdapter (context: Context, data: ArrayList<ProgrammingLangua
         this.mLanguagesDataFiltered = mLanguagesData
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = mInflater.inflate(R.layout.recyclerview_item, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if(viewType == RIGHT_LOGO) {
+            val view = mInflater.inflate(R.layout.recyclerview_item, parent, false)
+            return ViewHolderOne(view)
+        }else
+        {
+            val view = mInflater.inflate(R.layout.recyclerview_item_2, parent, false)
+            return ViewHolderTwo(view)
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(mLanguagesDataFiltered.size==0) return
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val language = mLanguagesDataFiltered[position]
+        when(holder.itemViewType){
+            RIGHT_LOGO->{
+                initLayoutOne(holder as ViewHolderOne, language)
+            }
+            LEFT_LOGO->{
+                initLayoutTwo(holder as ViewHolderTwo, language)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int = if(position%2==0) RIGHT_LOGO else LEFT_LOGO
+    private fun initLayoutOne(holder: ViewHolderOne, language:ProgrammingLanguage) {
+        holder.name.text = language.name
+        holder.author.text = language.author
+        holder.release.text = language.releaseDate
+        holder.paradigm.text = language.paradigm.joinToString (", ")
+        holder.rating.text = language.rating
+        holder.logo.setImageBitmap(language.logo)
+    }
+    private fun initLayoutTwo(holder: ViewHolderTwo, language: ProgrammingLanguage) {
         holder.name.text = language.name
         holder.author.text = language.author
         holder.release.text = language.releaseDate
@@ -48,7 +82,7 @@ class MyRecyclerViewAdapter (context: Context, data: ArrayList<ProgrammingLangua
 
     override fun getItemCount(): Int = mLanguagesDataFiltered.size
 
-    inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolderOne internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         internal var logo:ImageView
         internal var name:TextView
@@ -71,7 +105,7 @@ class MyRecyclerViewAdapter (context: Context, data: ArrayList<ProgrammingLangua
             if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
         }
     }
-    inner class ViewHolder2 internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolderTwo internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         internal var logo:ImageView
         internal var name:TextView

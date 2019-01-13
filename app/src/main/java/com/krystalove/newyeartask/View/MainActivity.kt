@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListene
 
     override fun onItemClick(view: View, position: Int) {
         intent = Intent(this, WebViewActivity::class.java)
-        Log.i("URL", languages[position].Url)
-        intent.putExtra("URL", languages[position].Url)
+        Log.i("URL", myRecyclerViewAdapter!!.mLanguagesDataFiltered[position].Url)
+        intent.putExtra("URL", myRecyclerViewAdapter!!.mLanguagesDataFiltered[position].Url)
         startActivity(intent)
     }
 
@@ -62,8 +62,7 @@ class MainActivity : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListene
             this,
             R.array.paradigms, android.R.layout.simple_spinner_item
         )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
         return true
@@ -74,10 +73,10 @@ class MainActivity : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListene
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         var query: String = ""
-        if(parent!!.getItemAtPosition(position).toString()!="All")
-            query = parent!!.getItemAtPosition(position).toString()
+        if(parent?.getItemAtPosition(position).toString()!="All")
+            query = parent?.getItemAtPosition(position).toString()
         myRecyclerViewAdapter!!.filter.filter(query)
-        Log.i("sosatt", parent!!.getItemAtPosition(position) as String?)
+        Log.i("ITEM:", parent?.getItemAtPosition(position) as String?)
 
     }
     private fun initData(){
@@ -168,7 +167,7 @@ class MainActivity : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListene
                     "1995",
                     listOf("OOP", "Imperative"),
                     getBitmap(R.drawable.php_8),
-                    "2.680",
+                    "2.680%",
                     "https://en.wikipedia.org/wiki/PHP"
                 )
             )
